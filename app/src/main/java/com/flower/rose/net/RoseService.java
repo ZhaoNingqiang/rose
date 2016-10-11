@@ -1,10 +1,11 @@
 package com.flower.rose.net;
 
-import com.flower.rose.model.PictureList;
+import com.flower.rose.been.PictureList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * @Description:
@@ -15,5 +16,5 @@ import retrofit2.http.Query;
 public interface RoseService {
 
     @GET("/")
-    Call<PictureList> groupList(@Query("page") int page);
+    Observable<PictureList> pictureList(@Query("page") int page);
 }

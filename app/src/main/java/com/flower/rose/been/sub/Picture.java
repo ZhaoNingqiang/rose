@@ -1,4 +1,4 @@
-package com.flower.rose.model;
+package com.flower.rose.been.sub;
 
 /**
  * @Description:
@@ -10,6 +10,5 @@ public class Picture {
     public String href;
     public String alt;
     public String title;
-//    public String dataPictureId;
     public String thumbnail;
 }

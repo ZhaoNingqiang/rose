@@ -1,25 +1,17 @@
 package com.flower.rose.net.converter;
 
-import com.flower.rose.model.BaseModel;
+import com.flower.rose.been.BaseBean;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Attribute;
-import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 
@@ -40,14 +32,14 @@ public class  JsoupParser<T> {
 
                 Class<?> superclass = clazz.getSuperclass();
 
-                if (superclass == BaseModel.class){
+                if (superclass == BaseBean.class){
                     Constructor<?> constructor = clazz.getConstructor();
                     Object obj = constructor.newInstance();
                     Method parser = superclass.getDeclaredMethod("parser", Document.class);
                     Object invoke = parser.invoke(obj, Jsoup.parse(value.string()));
                     return (T) invoke;
                 }else {
-                    return null;
+                    throw new IllegalArgumentException(clazz.getName()+"is not extends BaseModel");
                 }
 
             }

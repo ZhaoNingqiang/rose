@@ -1,4 +1,6 @@
-package com.flower.rose.activity;
+package com.flower.rose.module.login;
+
+import com.flower.rose.base.BaseActicity;
 
 /**
  * @Description:

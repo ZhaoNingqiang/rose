@@ -1,11 +1,12 @@
-package com.flower.rose.model;
+package com.flower.rose.been;
+
+import com.flower.rose.been.sub.Picture;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Description:
@@ -13,8 +14,8 @@ import java.util.List;
  * @Time 2016/09/29 上午11:33
  */
 
-public class PictureList extends BaseModel<PictureList>{
-    ArrayList<Picture> picture_list;
+public class PictureList extends BaseBean<PictureList>{
+    public ArrayList<Picture> picture_list;
 
     @Override
     public PictureList parser( Document document) {
