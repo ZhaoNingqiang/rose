@@ -1,12 +1,13 @@
 package com.flower.rose.module.home;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.LinearLayoutManager;
 
 import com.flower.rose.R;
 import com.flower.rose.base.BaseFragment;
 import com.flower.rose.been.PictureList;
-import com.flower.rose.widget.RecycleViewSwipeLayout;
+import com.flower.rose.widget.recyclerview.RoseRecycleView;
+import com.flower.rose.widget.recyclerview.RoseSwipeRefreshLayout;
 
 /**
  * @Description:
@@ -16,8 +17,8 @@ import com.flower.rose.widget.RecycleViewSwipeLayout;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeView {
     private static final int COLUMNS_NUM = 2;
-    private RecycleViewSwipeLayout rvsl_home;
-    private RecyclerView rv_home;
+    private RoseSwipeRefreshLayout rvsl_home;
+    private RoseRecycleView rv_home;
     private HomeAdapter homeAdapter;
 
 
@@ -51,14 +52,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected void loadDataIfNull() {
-        mPresenter.loadHomeData(1);
+        mPresenter.loadHomeData(START_PAGE);
     }
 
 
     @Override
     public void showPictures(int page, PictureList pictureList) {
-        if (page == 1) {
-            homeAdapter.initData(pictureList);
+        if (page == START_PAGE) {
+            homeAdapter.setData(pictureList.picture_list);
+        }else {
+            homeAdapter.addData(pictureList.picture_list);
         }
 
     }

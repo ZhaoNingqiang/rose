@@ -18,7 +18,6 @@
         app:headerLayout="@layout/hearder_navigation"
         app:itemIconTint="@color/bg_navigation_menu"
         app:itemTextColor="@color/bg_navigation_menu"
-
         app:menu="@menu/menu_navigation" />
 
 </android.support.v4.widget.DrawerLayout>

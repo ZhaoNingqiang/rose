@@ -19,7 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.login.LoginActivity"/>
+        <activity android:name=".module.login.LoginActivity"
+            android:parentActivityName=".module.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".module.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

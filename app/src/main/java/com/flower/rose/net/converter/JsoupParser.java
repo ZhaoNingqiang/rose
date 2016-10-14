@@ -39,7 +39,7 @@ public class  JsoupParser<T> {
                     Object invoke = parser.invoke(obj, Jsoup.parse(value.string()));
                     return (T) invoke;
                 }else {
-                    throw new IllegalArgumentException(clazz.getName()+"is not extends BaseModel");
+                    throw new IllegalArgumentException(clazz.getName()+" must extends BaseModel");
                 }
 
             }

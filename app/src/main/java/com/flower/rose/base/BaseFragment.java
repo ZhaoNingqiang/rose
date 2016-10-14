@@ -17,6 +17,7 @@ import com.flower.rose.app.Rose;
  */
 
 public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
+    protected static final int START_PAGE = 1;
     protected P mPresenter;
     protected BaseActicity mActivity;
     protected View mRootView;

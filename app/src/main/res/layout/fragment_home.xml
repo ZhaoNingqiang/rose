@@ -4,16 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.flower.rose.widget.RecycleViewSwipeLayout
+    <com.flower.rose.widget.recyclerview.RoseSwipeRefreshLayout
         android:id="@+id/rvsl_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.flower.rose.widget.recyclerview.RoseRecycleView
             android:id="@+id/rv_home"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.flower.rose.widget.RecycleViewSwipeLayout>
+    </com.flower.rose.widget.recyclerview.RoseSwipeRefreshLayout>
 
 </LinearLayout>
