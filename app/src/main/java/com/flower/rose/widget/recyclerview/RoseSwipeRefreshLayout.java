@@ -1,14 +1,23 @@
 package com.flower.rose.widget.recyclerview;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.ScrollerCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.animation.Animation;
+import android.view.animation.Transformation;
+import android.widget.AbsListView;
 
 import com.flower.rose.R;
 
@@ -19,12 +28,20 @@ import com.flower.rose.R;
  */
 
 public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRefreshLayout {
+    private static final String TAG = "RoseSwipeRefreshLayout";
+    public static final int FOOTER_HEIGHT = 80;
+
     private boolean mRefreshRecyclerView = true;
 
     private int mRecyclerViewId;
     private RV mRecyclerView;
 
     private View mFooterView;
+    private int mFooterHeight;
+
+    private int mCurrentTargetOffsetTop = 0;
+
+    private boolean mNotify;
 
     public RoseSwipeRefreshLayout(Context context) {
         this(context, null);
@@ -32,11 +49,24 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 
     public RoseSwipeRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.RoseSwipeRefreshLayout);
         mRecyclerViewId = a.getResourceId(R.styleable.RoseSwipeRefreshLayout_recyclerViewId, -1);
         a.recycle();
+
+        final DisplayMetrics metrics = getResources().getDisplayMetrics();
+        mFooterHeight = (int) (FOOTER_HEIGHT * metrics.density);
         createFooterView();
     }
+
+    private void createFooterView() {
+        mFooterView = View.inflate(getContext(), R.layout.footer_load_more, null);
+        mFooterView.setVisibility(VISIBLE);
+        addView(mFooterView);
+
+    }
+
 
     private void ensureRecyclerView() {
         if (!mRefreshRecyclerView) {
@@ -73,8 +103,10 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
                     RoseAdapter adapter = (RoseAdapter) recyclerView.getAdapter();
 
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+                    int lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition();
                     if (adapter.getItemCount() - lastVisibleItemPosition == 1 && dy > 0) {
+
+                        //startScrollAnimation();
                         if (mLoadMoreListener != null) {
                             mLoadMoreListener.onLoaderMore();
                         }
@@ -86,13 +118,25 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
         mRefreshRecyclerView = false;
     }
 
+    int ALPHA_ANIMATION_DURATION = 300;
 
-    private void createFooterView() {
-        mFooterView = View.inflate(getContext(), R.layout.footer_load_more, null);
-        mFooterView.setVisibility(VISIBLE);
-        addView(mFooterView);
-
+    private void startScrollAnimation() {
+//        if (mLoading)return;
+        mCurrentTargetOffsetTop = mFooterHeight;
+        requestLayout();
+        ValueAnimator animator = ValueAnimator.ofInt(0, mFooterHeight);
+        animator.setDuration(ALPHA_ANIMATION_DURATION);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int currentValue = (int) animation.getAnimatedValue();
+                setScrollY(currentValue);
+            }
+        });
+        animator.start();
+//        mLoading = true;
     }
+
 
 
     @Override
@@ -105,22 +149,17 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
             return;
         }
 
-        int measuredHeight = mFooterView.getMeasuredHeight();
-        Log.d("", "measuredHeight = " + measuredHeight + " height = " + getMeasuredHeight());
-        final DisplayMetrics metrics = getResources().getDisplayMetrics();
-        measuredHeight = (int) (80 * metrics.density);
-
 
         mFooterView.measure(MeasureSpec.makeMeasureSpec(getMeasuredWidth() - getPaddingLeft() - getPaddingRight(), MeasureSpec.EXACTLY),
-                MeasureSpec.makeMeasureSpec(measuredHeight, MeasureSpec.EXACTLY));
+                MeasureSpec.makeMeasureSpec(mFooterHeight, MeasureSpec.EXACTLY));
 
 
         mRecyclerView.measure(MeasureSpec.makeMeasureSpec(
                 getMeasuredWidth() - getPaddingLeft() - getPaddingRight(),
                 MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(
-                getMeasuredHeight() - measuredHeight - getPaddingTop() - getPaddingBottom(), MeasureSpec.EXACTLY));
+                getMeasuredHeight() - mFooterHeight - getPaddingTop() - getPaddingBottom(), MeasureSpec.EXACTLY));
 
-
+        Log.d(TAG, "onMeasure");
     }
 
     @Override
@@ -143,19 +182,100 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
         final int childLeft = getPaddingLeft();
         final int childTop = getPaddingTop();
         final int childWidth = width - getPaddingLeft() - getPaddingRight();
-        final int childHeight = height - getPaddingTop() - getPaddingBottom() - mFooterView.getMeasuredHeight();
-        child.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
+        final int childHeight = height - getPaddingTop() - getPaddingBottom();
+        child.layout(childLeft, childTop - mCurrentTargetOffsetTop, childLeft + childWidth, childTop + childHeight);
 
-
-        mFooterView.layout(childLeft, childTop + childHeight, childLeft + childWidth, childTop + childHeight + mFooterView.getMeasuredHeight());
-
+        mFooterView.layout(childLeft, childTop + childHeight, childLeft + childWidth, childTop + childHeight + mFooterHeight);
+        Log.d(TAG, "onLayout mCurrentTargetOffsetTop = " + mCurrentTargetOffsetTop);
     }
 
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        int action = MotionEventCompat.getActionMasked(ev);
+
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                break;
+
+            case MotionEvent.ACTION_MOVE: {
+//                if (!canChildScrollBottom()){
+//                        setScrollY((int) mInitialMotionY);
+//                        return true;
+//                }
+                break;
+            }
+
+            case MotionEvent.ACTION_UP: {
+//                if (!canChildScrollBottom()){
+//                    startScrollAnimation();
+//                    return true;
+//                }
+
+            }
+            case MotionEvent.ACTION_CANCEL:
+//                if (!canChildScrollBottom()){
+//                    startScrollAnimation();
+//                    return true;
+//                }
+        }
+        Log.d(TAG, "onTouchEvent");
+        return super.onTouchEvent(ev);
+    }
+
+
+    float mInitialDownY = 0;
+    private int mTouchSlop;
+    float mInitialMotionY;
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        Log.d(TAG, "onInterceptTouchEvent");
+
+        int action = MotionEventCompat.getActionMasked(ev);
+        if (!isEnabled() || canChildScrollBottom()){
+            return false;
+        }
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                 mInitialDownY =  MotionEventCompat.getY(ev, 0);
+                break;
+
+            case MotionEvent.ACTION_MOVE: {
+                if (canChildScrollBottom()){
+                    final float y =  MotionEventCompat.getY(ev, 0);
+                    final float yDiff = y - mInitialDownY;
+                    if (yDiff > mTouchSlop && canChildScrollBottom()) {
+                        mInitialMotionY = mInitialDownY + mTouchSlop;
+                        return true;
+                    }else {
+                        return false;
+                    }
+                }
+
+            }
+
+            case MotionEvent.ACTION_UP: {
+                if (!canChildScrollBottom()){
+                    return true;
+                }
+            }
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    private boolean mLoading = false;
 
     LoadMoreListener mLoadMoreListener;
 
     public interface LoadMoreListener {
         void onLoaderMore();
+    }
+
+    public boolean canChildScrollBottom() {
+        return ViewCompat.canScrollVertically(mRecyclerView, 1);
     }
 
 

@@ -1,7 +1,6 @@
 package com.flower.rose.module.home;
 
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 
 import com.flower.rose.R;
 import com.flower.rose.base.BaseFragment;
