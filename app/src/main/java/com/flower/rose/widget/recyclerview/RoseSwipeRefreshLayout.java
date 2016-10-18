@@ -275,10 +275,11 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
             return false;
         }
 
+
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
-                mIsBeingDragged = false;
+                mIsBeingDragged = getScrollY() > 0 ;
                 final float initialDownY = getMotionEventY(ev, mActivePointerId);
                 if (initialDownY == -1) {
                     return false;
@@ -309,7 +310,7 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                mIsBeingDragged = false;
+                mIsBeingDragged = getScrollY() > 0 ;
                 mActivePointerId = INVALID_POINTER;
                 break;
         }
