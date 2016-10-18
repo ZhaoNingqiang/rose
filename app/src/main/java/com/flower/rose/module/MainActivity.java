@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 
+import com.flower.rose.NotifcationHelper;
 import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
 import com.flower.rose.module.home.HomeFragment;
@@ -148,6 +149,7 @@ public class MainActivity extends BaseActicity {
                         Notification notification = builder.build();
 
                         //
+                        NotifcationHelper.processNotification(notification);
 
 
 
@@ -167,7 +169,7 @@ public class MainActivity extends BaseActicity {
                 return true;
             }
         });
-//        switchFragment();
+        switchFragment();
 
 
     }

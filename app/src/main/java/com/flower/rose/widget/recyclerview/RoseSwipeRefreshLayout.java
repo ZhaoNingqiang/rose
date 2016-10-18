@@ -42,6 +42,7 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
     private int mCurrentTargetOffsetTop = 0;
 
     private boolean mNotify;
+    private static final float DRAG_RATE = .5f;
 
     public RoseSwipeRefreshLayout(Context context) {
         this(context, null);
@@ -138,7 +139,6 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
     }
 
 
-
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -159,7 +159,6 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
                 MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(
                 getMeasuredHeight() - mFooterHeight - getPaddingTop() - getPaddingBottom(), MeasureSpec.EXACTLY));
 
-        Log.d(TAG, "onMeasure");
     }
 
     @Override
@@ -176,51 +175,88 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
         if (mRecyclerView == null) {
             return;
         }
-
-
         final View child = mRecyclerView;
         final int childLeft = getPaddingLeft();
         final int childTop = getPaddingTop();
         final int childWidth = width - getPaddingLeft() - getPaddingRight();
         final int childHeight = height - getPaddingTop() - getPaddingBottom();
         child.layout(childLeft, childTop - mCurrentTargetOffsetTop, childLeft + childWidth, childTop + childHeight);
-
         mFooterView.layout(childLeft, childTop + childHeight, childLeft + childWidth, childTop + childHeight + mFooterHeight);
-        Log.d(TAG, "onLayout mCurrentTargetOffsetTop = " + mCurrentTargetOffsetTop);
     }
 
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
-        int action = MotionEventCompat.getActionMasked(ev);
+        Log.d(TAG, "onTouchEvent");
 
+        final int action = MotionEventCompat.getActionMasked(ev);
+        int pointerIndex = -1;
+
+
+        if (!isEnabled() || canChildScrollBottom()) {
+            // Fail fast if we're not in a state where a swipe is possible
+            return false;
+        }
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
+                mIsBeingDragged = true;
                 break;
 
             case MotionEvent.ACTION_MOVE: {
-//                if (!canChildScrollBottom()){
-//                        setScrollY((int) mInitialMotionY);
-//                        return true;
-//                }
+                pointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
+                if (pointerIndex < 0) {
+                    Log.e(TAG, "Got ACTION_MOVE event but have an invalid active pointer id.");
+                    return false;
+                }
+                if (getScrollY() > mFooterHeight) {
+                    Log.e(TAG, " getScrollY() = " + getScrollY() + "  mFooterHeight = " + mFooterHeight);
+                    return false;
+                }
+
+                final float y = MotionEventCompat.getY(ev, pointerIndex);
+
+                float overscrollBottom = (mInitialMotionY - y) * DRAG_RATE;
+
+                if (overscrollBottom > 0) {
+                    mIsBeingDragged = true;
+                    overscrollBottom = overscrollBottom > mFooterHeight ? mFooterHeight : overscrollBottom;
+                    Log.e(TAG, " overscrollBottom 1 = " + overscrollBottom);
+                    setScrollY((int) overscrollBottom);
+                } else {
+                    mIsBeingDragged = true;
+//                    Log.e(TAG, " overscrollBottom = "+ overscrollBottom);
+                    return false;
+                }
+
                 break;
             }
 
             case MotionEvent.ACTION_UP: {
-//                if (!canChildScrollBottom()){
-//                    startScrollAnimation();
-//                    return true;
-//                }
+                pointerIndex = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
+                if (pointerIndex < 0) {
+                    Log.e(TAG, "Got ACTION_UP event but don't have an active pointer id.");
+                    return false;
+                }
 
+                final float y = MotionEventCompat.getY(ev, pointerIndex);
+                final float overscrollBottom = (mInitialMotionY - y) * DRAG_RATE;
+
+
+                if (getScrollY() < mFooterHeight && getScrollY() > mFooterHeight * .5) {
+
+                }
+
+
+                mIsBeingDragged = false;
+                mActivePointerId = INVALID_POINTER;
+                return false;
             }
             case MotionEvent.ACTION_CANCEL:
-//                if (!canChildScrollBottom()){
-//                    startScrollAnimation();
-//                    return true;
-//                }
+                return false;
         }
-        Log.d(TAG, "onTouchEvent");
+
         return super.onTouchEvent(ev);
     }
 
@@ -229,42 +265,70 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
     private int mTouchSlop;
     float mInitialMotionY;
 
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.d(TAG, "onInterceptTouchEvent");
 
         int action = MotionEventCompat.getActionMasked(ev);
-        if (!isEnabled() || canChildScrollBottom()){
+        if (!isEnabled() || canChildScrollBottom()) {
             return false;
         }
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                 mInitialDownY =  MotionEventCompat.getY(ev, 0);
+                mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
+                mIsBeingDragged = false;
+                final float initialDownY = getMotionEventY(ev, mActivePointerId);
+                if (initialDownY == -1) {
+                    return false;
+                }
+                mInitialDownY = initialDownY;
                 break;
 
             case MotionEvent.ACTION_MOVE: {
-                if (canChildScrollBottom()){
-                    final float y =  MotionEventCompat.getY(ev, 0);
-                    final float yDiff = y - mInitialDownY;
-                    if (yDiff > mTouchSlop && canChildScrollBottom()) {
-                        mInitialMotionY = mInitialDownY + mTouchSlop;
-                        return true;
-                    }else {
-                        return false;
-                    }
+                if (mActivePointerId == INVALID_POINTER) {
+                    Log.e(TAG, "Got ACTION_MOVE event but don't have an active pointer id.");
+                    return false;
                 }
 
+                final float y = getMotionEventY(ev, mActivePointerId);
+                if (y == -1) {
+                    return false;
+                }
+
+                final float yDiff = y - mInitialDownY;
+                if (-yDiff > mTouchSlop && !mIsBeingDragged) {
+                    mInitialMotionY = mInitialDownY + mTouchSlop;
+                    mIsBeingDragged = true;
+                    Log.e(TAG, "拦截了事件 ");
+                }
+
+                break;
             }
 
-            case MotionEvent.ACTION_UP: {
-                if (!canChildScrollBottom()){
-                    return true;
-                }
-            }
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                mIsBeingDragged = false;
+                mActivePointerId = INVALID_POINTER;
+                break;
         }
-        return super.onInterceptTouchEvent(ev);
+        return super.onInterceptTouchEvent(ev) || mIsBeingDragged;
     }
+
+    private boolean mIsBeingDragged;
+    private static final int INVALID_POINTER = -1;
+
+    private int mActivePointerId = INVALID_POINTER;
+
+    private float getMotionEventY(MotionEvent ev, int activePointerId) {
+        final int index = MotionEventCompat.findPointerIndex(ev, activePointerId);
+        if (index < 0) {
+            return -1;
+        }
+        return MotionEventCompat.getY(ev, index);
+    }
+
 
     private boolean mLoading = false;
 
