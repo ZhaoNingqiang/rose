@@ -1,6 +1,8 @@
 package com.flower.rose.module.home;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 
 import com.flower.rose.R;
 import com.flower.rose.base.BaseFragment;
@@ -15,10 +17,12 @@ import com.flower.rose.widget.recyclerview.RoseSwipeRefreshLayout;
  */
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeView {
+    private String TAG = "HomeFragment";
     private static final int COLUMNS_NUM = 2;
     private RoseSwipeRefreshLayout rvsl_home;
     private RoseRecycleView rv_home;
     private HomeAdapter homeAdapter;
+    int currentPage = 1;
 
 
     @Override
@@ -39,6 +43,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         rv_home.setLayoutManager(layoutManager);
         homeAdapter = new HomeAdapter();
         rv_home.setAdapter(homeAdapter);
+        rvsl_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(TAG,"onRefresh ");
+                loadDataIfNull();
+            }
+        });
+        rvsl_home.setLoadMoreListener(new RoseSwipeRefreshLayout.LoadMoreListener() {
+            @Override
+            public void onLoaderMore() {
+                Log.d(TAG,"onLoaderMore currentPage = "+currentPage);
+                currentPage++;
+                mPresenter.loadHomeData(currentPage);
+            }
+        });
 
     }
 
@@ -51,15 +70,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected void loadDataIfNull() {
-        mPresenter.loadHomeData(START_PAGE);
+        currentPage = START_PAGE;
+        mPresenter.loadHomeData(currentPage);
     }
 
 
     @Override
     public void showPictures(int page, PictureList pictureList) {
         if (page == START_PAGE) {
+            if (rvsl_home.isRefreshing()){
+                rvsl_home.setRefreshing(false);
+            }
             homeAdapter.setData(pictureList.picture_list);
         }else {
+//            if (rvsl_home.isLoading()){
+//                rvsl_home.setLoading(false);
+//            }
+            rvsl_home.setLoading(false);
             homeAdapter.addData(pictureList.picture_list);
         }
 

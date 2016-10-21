@@ -1,5 +1,7 @@
 package com.flower.rose.widget.recyclerview;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -108,9 +110,9 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
                     if (adapter.getItemCount() - lastVisibleItemPosition == 1 && dy > 0) {
 
                         //startScrollAnimation();
-                        if (mLoadMoreListener != null) {
-                            mLoadMoreListener.onLoaderMore();
-                        }
+//                        if (mLoadMoreListener != null) {
+//                            mLoadMoreListener.onLoaderMore();
+//                        }
                     }
 
                 }
@@ -119,13 +121,23 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
         mRefreshRecyclerView = false;
     }
 
-    int ALPHA_ANIMATION_DURATION = 300;
+    int ALPHA_ANIMATION_DURATION = 200;
 
-    private void startScrollAnimation() {
-//        if (mLoading)return;
-        mCurrentTargetOffsetTop = mFooterHeight;
-        requestLayout();
-        ValueAnimator animator = ValueAnimator.ofInt(0, mFooterHeight);
+    AnimatorListenerAdapter mLoadingListener = new AnimatorListenerAdapter() {
+        @Override
+        public void onAnimationEnd(Animator animation) {
+            if (mNotify) {
+                if (mLoadMoreListener != null) {
+                    mLoadMoreListener.onLoaderMore();
+                }
+            }
+
+        }
+    };
+
+    private void startScrollAnimation(int start, int end) {
+        clearAnimation();
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
         animator.setDuration(ALPHA_ANIMATION_DURATION);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -134,8 +146,8 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
                 setScrollY(currentValue);
             }
         });
+        animator.addListener(mLoadingListener);
         animator.start();
-//        mLoading = true;
     }
 
 
@@ -244,8 +256,11 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
                 final float overscrollBottom = (mInitialMotionY - y) * DRAG_RATE;
 
 
-                if (getScrollY() < mFooterHeight && getScrollY() > mFooterHeight * .5) {
-
+                if (getScrollY() <= mFooterHeight && getScrollY() > mFooterHeight * .5) {
+                    mNotify = true;
+                    startScrollAnimation(getScrollY(), mFooterHeight);
+                } else {
+                    startScrollAnimation(getScrollY(), 0);
                 }
 
 
@@ -279,7 +294,7 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
-                mIsBeingDragged = getScrollY() > 0 ;
+                mIsBeingDragged = getScrollY() > 0;
                 final float initialDownY = getMotionEventY(ev, mActivePointerId);
                 if (initialDownY == -1) {
                     return false;
@@ -310,7 +325,7 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
-                mIsBeingDragged = getScrollY() > 0 ;
+                mIsBeingDragged = getScrollY() > 0;
                 mActivePointerId = INVALID_POINTER;
                 break;
         }
@@ -333,7 +348,23 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 
     private boolean mLoading = false;
 
+    public boolean isLoading() {
+        return mLoading;
+    }
+
+    public void setLoading(boolean loading) {
+        mLoading = loading;
+        mNotify = false;
+        startScrollAnimation(getScrollY(), 0);
+    }
+
+
     LoadMoreListener mLoadMoreListener;
+
+    public void setLoadMoreListener(LoadMoreListener mLoadMoreListener) {
+        this.mLoadMoreListener = mLoadMoreListener;
+    }
+
 
     public interface LoadMoreListener {
         void onLoaderMore();
@@ -345,7 +376,6 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 
 
 }
-
 
 
 

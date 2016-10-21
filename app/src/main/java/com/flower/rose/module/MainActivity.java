@@ -12,6 +12,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -25,13 +26,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.flower.rose.NotifcationHelper;
 import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
 import com.flower.rose.module.home.HomeFragment;
 import com.flower.rose.module.login.LoginActivity;
+import com.tencent.tinker.lib.tinker.TinkerInstaller;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,6 +49,7 @@ import rx.functions.Func1;
 
 public class MainActivity extends BaseActicity {
     private static final String TAG = "MainActivity";
+    String patchPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator+"patch.apk";
 
     @BindView(R.id.main_drawer)
     DrawerLayout main_drawer;
@@ -58,6 +63,7 @@ public class MainActivity extends BaseActicity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(TAG,"onCreate patch is used");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -90,10 +96,18 @@ public class MainActivity extends BaseActicity {
                         switchFragment();
                         break;
                     case R.id.item_menu2:
-//                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
-//                        startActivity(i);
+                        File file = new File(patchPath);
+                        if (file.exists()) {
+                            Log.e(TAG,"补丁文件存在");
+                            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), patchPath);
+                            Log.e(TAG,"安装完成");
+                            Toast.makeText(getApplicationContext(),"安装完成",Toast.LENGTH_LONG).show();
+                        } else {
+                            Log.e(TAG,"补丁文件不存在");
+                            Toast.makeText(getApplicationContext(),"文件不存在",Toast.LENGTH_LONG).show();
 
-                        ArrayList<Course> c = new ArrayList<Course>();
+                        }
+                     /*   ArrayList<Course> c = new ArrayList<Course>();
                         for (int i = 0; i < 3; i++) {
                             Course course = new Course();
                             course.course = "course  " + i;
@@ -131,7 +145,7 @@ public class MainActivity extends BaseActicity {
                                 Log.d(TAG, "tt student =   " + student.name);
                                 return Observable.from(student.courses);
                             }
-                        }).subscribe(subscriber);
+                        }).subscribe(subscriber);*/
 
                         break;
                     case R.id.item_sub_menu1:
@@ -163,6 +177,7 @@ public class MainActivity extends BaseActicity {
 
                         break;
                     case R.id.item_sub_menu2:
+//                        Toast.makeText(MainActivity.this, "我是修改后的", Toast.LENGTH_SHORT).show();
                         break;
 
                 }
