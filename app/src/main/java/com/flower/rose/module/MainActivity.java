@@ -28,11 +28,13 @@ import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.flower.rose.NotifcationHelper;
 import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
 import com.flower.rose.module.home.HomeFragment;
 import com.flower.rose.module.login.LoginActivity;
+import com.flower.rose.tinker.util.Utils;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
 
 import java.io.File;
@@ -63,11 +65,14 @@ public class MainActivity extends BaseActicity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.e(TAG,"onCreate patch is used");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Log.e(TAG, "i am on onCreate");
 
+        Log.e(TAG, "i am on onCreate classloader:" + MainActivity.class.getClassLoader().toString());
+//        //test resource change
+        Log.e(TAG, "i am on patch onCreate");
 
         drawerToggle = new ActionBarDrawerToggle(this, main_drawer, R.string.drawer_open, R.string.drawer_close) {
             @Override
@@ -96,17 +101,20 @@ public class MainActivity extends BaseActicity {
                         switchFragment();
                         break;
                     case R.id.item_menu2:
-                        File file = new File(patchPath);
-                        if (file.exists()) {
-                            Log.e(TAG,"补丁文件存在");
-                            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), patchPath);
-                            Log.e(TAG,"安装完成");
-                            Toast.makeText(getApplicationContext(),"安装完成",Toast.LENGTH_LONG).show();
-                        } else {
-                            Log.e(TAG,"补丁文件不存在");
-                            Toast.makeText(getApplicationContext(),"文件不存在",Toast.LENGTH_LONG).show();
-
-                        }
+                        Log.e(TAG, "begin patch");
+                        TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), Environment.getExternalStorageDirectory().getAbsolutePath() + "/patch_signed_7zip.apk");
+                        Log.e(TAG, "end patch");
+//                        File file = new File(patchPath);
+//                        if (file.exists()) {
+//                            Log.e(TAG,"补丁文件存在");
+//                            TinkerInstaller.onReceiveUpgradePatch(getApplicationContext(), patchPath);
+//                            Log.e(TAG,"安装完成");
+//                            Toast.makeText(getApplicationContext(),"安装完成",Toast.LENGTH_LONG).show();
+//                        } else {
+//                            Log.e(TAG,"补丁文件不存在");
+//                            Toast.makeText(getApplicationContext(),"文件不存在",Toast.LENGTH_LONG).show();
+//
+//                        }
                      /*   ArrayList<Course> c = new ArrayList<Course>();
                         for (int i = 0; i < 3; i++) {
                             Course course = new Course();
@@ -177,7 +185,7 @@ public class MainActivity extends BaseActicity {
 
                         break;
                     case R.id.item_sub_menu2:
-//                        Toast.makeText(MainActivity.this, "我是修改后的", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "我是修改后的加了布丁", Toast.LENGTH_SHORT).show();
                         break;
 
                 }
@@ -234,5 +242,21 @@ public class MainActivity extends BaseActicity {
         public String course;
     }
 
+
+    @Override
+    protected void onResume() {
+        Log.e(TAG, "i am on onResume");
+//        Log.e(TAG, "i am on patch onResume");
+
+        super.onResume();
+        Utils.setBackground(false);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Utils.setBackground(true);
+    }
 
 }

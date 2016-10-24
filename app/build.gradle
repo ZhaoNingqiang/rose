@@ -64,16 +64,16 @@ android {
         buildConfigField "String", "PLATFORM",  "\"all\""
     }
     buildTypes {
-        release {
-            minifyEnabled true
-            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            debuggable true
-            minifyEnabled false
-            signingConfig signingConfigs.debug
-        }
+//        release {
+//            minifyEnabled true
+//            signingConfig signingConfigs.release
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//        }
+//        debug {
+//            debuggable true
+//            minifyEnabled false
+//            signingConfig signingConfigs.debug
+//        }
     }
     sourceSets {
         main {
@@ -104,11 +104,11 @@ ext {
 
     //for normal build
     //old apk file to build patch apk
-    tinkerOldApkPath = "${bakPath}/app-debug-1021-16-30-29.apk"
+    tinkerOldApkPath = "${bakPath}/app-debug-1024-19-24-05.apk"
     //proguard mapping file to build patch apk
     tinkerApplyMappingPath = "${bakPath}/"
     //resource R.txt to build patch apk, must input if there is resource changed
-    tinkerApplyResourcePath = "${bakPath}/app-debug-1021-16-30-29-R.txt"
+    tinkerApplyResourcePath = "${bakPath}/app-debug-1024-19-24-05-R.txt"
 
     //only use for build all flavor, if not, just ignore this field
     tinkerBuildFlavorDirectory = "${bakPath}/app-1018-17-32-47"

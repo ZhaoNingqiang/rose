@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
@@ -15,10 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/hearder_navigation"
         app:itemIconTint="@color/bg_navigation_menu"
         app:itemTextColor="@color/bg_navigation_menu"
         app:menu="@menu/menu_navigation" />
-
 </android.support.v4.widget.DrawerLayout>
 
