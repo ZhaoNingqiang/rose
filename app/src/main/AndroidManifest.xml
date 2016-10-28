@@ -15,9 +15,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-      <!--  <service
+        <service
             android:name=".tinker.service.SampleResultService"
-            android:exported="false"/>-->
+            android:exported="false"/>
         <activity android:name=".module.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

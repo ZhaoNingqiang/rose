@@ -5,7 +5,6 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 
 /**
@@ -63,5 +62,8 @@ public class AViewGroup extends ViewGroup {
     public void setOnTouchListener(OnTouchListener l) {
         super.setOnTouchListener(l);
     }
+
+
+
 
 }
