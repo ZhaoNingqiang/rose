@@ -29,6 +29,7 @@ public class  JsoupParser<T> {
         try {
             if (type instanceof Class<?>) {// Type is a normal class.
                 Class<?> clazz = (Class<?>) type;
+                Math.ceil()
 
                 Class<?> superclass = clazz.getSuperclass();
 
