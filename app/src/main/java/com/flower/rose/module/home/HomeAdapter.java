@@ -7,9 +7,12 @@ import android.widget.TextView;
 
 import com.flower.rose.R;
 import com.flower.rose.been.sub.Picture;
+import com.flower.rose.module.banner.BannerActivity;
 import com.flower.rose.util.GlideHelper;
 import com.flower.rose.widget.recyclerview.RoseAdapter;
 import com.flower.rose.widget.recyclerview.RoseViewHolder;
+
+import java.util.ArrayList;
 
 /**
  * @Description:
@@ -17,7 +20,7 @@ import com.flower.rose.widget.recyclerview.RoseViewHolder;
  * @Time 2016/10/11 下午4:13
  */
 
-public class HomeAdapter extends RoseAdapter<Picture,HomeAdapter.ViewHolder> {
+public class HomeAdapter extends RoseAdapter<Picture, HomeAdapter.ViewHolder> {
 
 
     @Override
@@ -26,13 +29,20 @@ public class HomeAdapter extends RoseAdapter<Picture,HomeAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindContentViewHolder(ViewHolder holder, int position) {
+    public void onBindContentViewHolder(final ViewHolder holder, final int position) {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<Picture> pictures = (ArrayList<Picture>) mData;
+                BannerActivity.runBannerActivity(v.getContext(), pictures, position,null);
+            }
+        });
         Picture picture = getItem(position);
-        GlideHelper.load(picture.thumbnail,holder.iv_cover);
+        GlideHelper.load(picture.thumbnail, holder.iv_cover);
         holder.tv_title.setText(picture.alt);
     }
 
-      class ViewHolder extends RoseViewHolder {
+    static class ViewHolder extends RoseViewHolder {
         ImageView iv_cover;
         TextView tv_title;
 
@@ -40,4 +50,6 @@ public class HomeAdapter extends RoseAdapter<Picture,HomeAdapter.ViewHolder> {
             super(itemView);
         }
     }
+
+
 }

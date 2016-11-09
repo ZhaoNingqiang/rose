@@ -22,7 +22,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     private RoseSwipeRefreshLayout rvsl_home;
     private RoseRecycleView rv_home;
     private HomeAdapter homeAdapter;
-    int currentPage = 1;
+    private int currentPage = 1;
 
 
     @Override
@@ -78,14 +78,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     @Override
     public void showPictures(int page, PictureList pictureList) {
         if (page == START_PAGE) {
-            if (rvsl_home.isRefreshing()){
-                rvsl_home.setRefreshing(false);
-            }
+//            if (rvsl_home.isRefreshing()){
+//                rvsl_home.setRefreshing(false);
+//            }
             homeAdapter.setData(pictureList.picture_list);
         }else {
-//            if (rvsl_home.isLoading()){
-//                rvsl_home.setLoading(false);
-//            }
             rvsl_home.setLoading(false);
             homeAdapter.addData(pictureList.picture_list);
         }

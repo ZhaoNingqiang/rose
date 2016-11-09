@@ -26,7 +26,7 @@ public class MyClass {
         if (s == null) {
             return false;
         }
-        String idPattern = "(^\\d{17}([0-9]|x|X)$)|(^\\d{15})";
+        String idPattern = "(^\\d{17}([0-9]|x|X)$)|(^\\d{15}$)";
         return Pattern.matches(idPattern, s);
     }
 
