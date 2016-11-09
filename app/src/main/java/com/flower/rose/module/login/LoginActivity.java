@@ -1,6 +1,7 @@
 package com.flower.rose.module.login;
 
 import com.flower.rose.base.BaseActicity;
+import com.flower.rose.base.BasePresenter;
 
 /**
  * @Description:
@@ -9,4 +10,23 @@ import com.flower.rose.base.BaseActicity;
  */
 
 public class LoginActivity extends BaseActicity {
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
+
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
+    }
 }

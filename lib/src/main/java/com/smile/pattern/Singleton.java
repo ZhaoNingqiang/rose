@@ -7,6 +7,7 @@ package com.smile.pattern;
  * 3、静态内部类
  * 4、枚举
  * 5、双重校验锁
+ * https://www.oschina.net/code/snippet_107039_6062
  * @Author: ZhaoNingqiang
  * @Time 2016/11/08 下午3:30
  */

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.flower.rose.NotifcationHelper;
 import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
+import com.flower.rose.base.BasePresenter;
 import com.flower.rose.module.home.HomeFragment;
 import com.flower.rose.module.login.LoginActivity;
 import com.flower.rose.tinker.util.Utils;
@@ -34,7 +35,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActicity {
     private static final String TAG = "MainActivity";
@@ -53,14 +53,27 @@ public class MainActivity extends BaseActicity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        Log.e(TAG, "i am on onCreate");
 
+        Log.e(TAG, "i am on onCreate");
         Log.e(TAG, "i am on onCreate classloader:" + MainActivity.class.getClassLoader().toString());
 //        //test resource change
         Log.e(TAG, "i am on patch onCreate");
+        switchFragment();
+    }
 
+    @Override
+    protected int getLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+    }
+
+    @Override
+    protected void initListener() {
         drawerToggle = new ActionBarDrawerToggle(this, main_drawer, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
@@ -74,10 +87,6 @@ public class MainActivity extends BaseActicity {
                 getSupportActionBar().setTitle("close2");
             }
         };
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-
-
         main_drawer.addDrawerListener(drawerToggle);
 
         navigation_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -179,9 +188,12 @@ public class MainActivity extends BaseActicity {
                 return true;
             }
         });
-        switchFragment();
 
+    }
 
+    @Override
+    public BasePresenter initPresenter() {
+        return null;
     }
 
 
@@ -233,8 +245,6 @@ public class MainActivity extends BaseActicity {
     @Override
     protected void onResume() {
         Log.e(TAG, "i am on onResume");
-//        Log.e(TAG, "i am on patch onResume");
-
         super.onResume();
         Utils.setBackground(false);
 
