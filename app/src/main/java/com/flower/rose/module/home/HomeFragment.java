@@ -7,6 +7,7 @@ import android.util.Log;
 import com.flower.rose.R;
 import com.flower.rose.base.BaseFragment;
 import com.flower.rose.been.PictureList;
+import com.flower.rose.widget.recyclerview.GridItemDecoration;
 import com.flower.rose.widget.recyclerview.RoseRecycleView;
 import com.flower.rose.widget.recyclerview.RoseSwipeRefreshLayout;
 
@@ -43,6 +44,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         rv_home.setLayoutManager(layoutManager);
         homeAdapter = new HomeAdapter();
         rv_home.setAdapter(homeAdapter);
+        rv_home.addItemDecoration(new GridItemDecoration());
         rvsl_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
