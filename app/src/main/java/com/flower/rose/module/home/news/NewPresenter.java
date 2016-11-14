@@ -1,4 +1,4 @@
-package com.flower.rose.module.home;
+package com.flower.rose.module.home.news;
 
 import com.flower.rose.base.BasePresenter;
 import com.flower.rose.been.PictureList;
@@ -12,7 +12,7 @@ import rx.functions.Action1;
  * @Time 2016/10/11 上午11:53
  */
 
-public class HomePresenter extends BasePresenter<HomeView,HomeModel> {
+public class NewPresenter extends BasePresenter<NewView,HomeModel> {
 
     public void loadHomeData(final int page) {
         mModel.pictureList(page).subscribe(new Action1<PictureList>() {

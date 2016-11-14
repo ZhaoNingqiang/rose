@@ -17,36 +17,36 @@ import com.flower.rose.util.LogUtil;
 
 public class GridItemDecoration extends RecyclerView.ItemDecoration {
     private String tag = this.getClass().getSimpleName();
+    int dividerHeight = 0;
 
-    public GridItemDecoration() {
+    public GridItemDecoration(int dividerHeight) {
         super();
+        this.dividerHeight = dividerHeight;
     }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
         super.onDraw(c, parent, state);
-        LogUtil.d(tag, "onDraw");
     }
+
+
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int spanCount = getSpanCount(parent);
-        int position = parent.getLayoutManager().getPosition(view);
+        RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
+        int position = layoutManager.getPosition(view);
         int itemCount = parent.getAdapter().getItemCount();
-        outRect.set(0,0,12,12);
 
-
-
-
-
-        LogUtil.d(tag, "getItemOffsets pos = "+position+" spanCount = "+spanCount+" itemCount = "+itemCount);
-
-
-
-
-
-
+        if (isFirstColumn(layoutManager, spanCount, position)) {
+            outRect.set(0, 0, Math.round(dividerHeight * .5f), dividerHeight);
+        } else if (isLastColumn(layoutManager, spanCount, position)) {
+            outRect.set(Math.round(dividerHeight * .5f), 0, 0, dividerHeight);
+        } else {
+            outRect.set(Math.round(dividerHeight * .5f), 0, Math.round(dividerHeight * .5f), dividerHeight);
+        }
+        LogUtil.d(tag, "getItemOffsets pos = " + position + " spanCount = " + spanCount + " itemCount = " + itemCount);
     }
 
     @Override
@@ -54,6 +54,9 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         super.onDrawOver(c, parent, state);
 
         LogUtil.d(tag, "onDrawOver");
+
+
+//        c.drawColor(Color.RED);
     }
 
 
@@ -74,5 +77,37 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         }
 
         return spanCount;
+    }
+
+    /**
+     * 是否是最后一列
+     *
+     * @return
+     */
+    private boolean isLastColumn(RecyclerView.LayoutManager layoutManager, int spanCount, int position) {
+
+        if (layoutManager instanceof GridLayoutManager) {
+            if ((position + 1) % spanCount == 0) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    /**
+     * 是否是第一列
+     *
+     * @return
+     */
+    private boolean isFirstColumn(RecyclerView.LayoutManager layoutManager, int spanCount, int position) {
+
+        if (layoutManager instanceof GridLayoutManager) {
+            if ((position) % spanCount == 0) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }
