@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
 
 import com.flower.rose.R;
 
@@ -16,7 +17,8 @@ import com.flower.rose.R;
  */
 
 public abstract class BasePagerFragment extends BaseFragment<BasePresenter> {
-    protected TabLayout tb_title;
+    protected Toolbar toolbar;
+    protected TabLayout tabs;
     protected ViewPager vp_container;
     protected FragmentPageAdapter mPageAdapter;
     @Override
@@ -32,7 +34,12 @@ public abstract class BasePagerFragment extends BaseFragment<BasePresenter> {
 
     @Override
     protected void initView() {
-        tb_title = findView(R.id.tb_title);
+        toolbar = findView(R.id.toolbar);
+        mActivity.setSupportActionBar(toolbar);
+        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mActivity.getSupportActionBar().setHomeButtonEnabled(true);
+
+        tabs = findView(R.id.tabs);
         vp_container = findView(R.id.vp_container);
     }
 
@@ -40,7 +47,7 @@ public abstract class BasePagerFragment extends BaseFragment<BasePresenter> {
     protected void initListener() {
         mPageAdapter = new FragmentPageAdapter(getChildFragmentManager());
         vp_container.setAdapter(mPageAdapter);
-        tb_title.setupWithViewPager(vp_container);
+        tabs.setupWithViewPager(vp_container);
     }
 
     @Override
