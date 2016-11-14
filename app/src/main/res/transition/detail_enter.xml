@@ -2,7 +2,7 @@
 <transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
     <slide android:slideEdge="bottom">
         <targets>
-            <target android:targetId="@id/banner" />
+            <target android:targetId="@id/banner"  />
         </targets>
     </slide>
 
