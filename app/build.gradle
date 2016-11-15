@@ -36,7 +36,7 @@ android {
 
     defaultConfig {
         applicationId "com.flower.rose"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName "1.0.0"

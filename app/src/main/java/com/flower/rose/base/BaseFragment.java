@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 
 import com.flower.rose.app.Rose;
 
@@ -47,9 +48,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(getLayout(), container,false);
-        initView();
-        initListener();
+        if (mRootView == null){
+            mRootView = inflater.inflate(getLayout(), container,false);
+            initView();
+            initListener();
+        }else {
+            ViewParent parent = mRootView.getParent();
+            if (parent != null){
+                ((ViewGroup)parent).removeView(mRootView);
+            }
+        }
         return mRootView;
     }
 

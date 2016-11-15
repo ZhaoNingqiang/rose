@@ -68,8 +68,7 @@ public class MainActivity extends BaseActicity {
 
     @Override
     protected void initView() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+
     }
 
     @Override
