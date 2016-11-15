@@ -26,7 +26,7 @@ import com.flower.rose.NotifcationHelper;
 import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
 import com.flower.rose.base.BasePresenter;
-import com.flower.rose.module.home.HomeFragment;
+import com.flower.rose.module.home.HomePagerFragment;
 import com.flower.rose.module.login.LoginActivity;
 import com.flower.rose.tinker.util.Utils;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
@@ -226,7 +226,7 @@ public class MainActivity extends BaseActicity {
     private void switchFragment() {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.content_frame, Fragment.instantiate(getApplicationContext(), HomeFragment.class.getName()));
+        transaction.replace(R.id.content_frame, Fragment.instantiate(getApplicationContext(), HomePagerFragment.class.getName()));
         transaction.commit();
 
     }

@@ -1,4 +1,4 @@
-package com.flower.rose.module.home.news;
+package com.flower.rose.module.home;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @Time 2016/10/11 下午4:13
  */
 
-public class NewAdapter extends RoseAdapter<Picture, NewAdapter.ViewHolder> {
+public class HomeAdapter extends RoseAdapter<Picture, HomeAdapter.ViewHolder> {
 
 
     @Override
