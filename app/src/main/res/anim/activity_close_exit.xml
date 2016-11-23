@@ -27,6 +27,6 @@
             android:duration="150"/>
     <translate android:fromYDelta="0%" android:toYDelta="8%"
             android:fillEnabled="true" android:fillBefore="true" android:fillAfter="true"
-            android:interpolator="@interpolator/accelerate_quart"
+            android:interpolator="@android:interpolator/accelerate_quint"
             android:duration="250"/>
 </set>
