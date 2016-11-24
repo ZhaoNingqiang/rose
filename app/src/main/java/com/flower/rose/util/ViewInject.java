@@ -32,13 +32,13 @@ public class ViewInject {
             field.set(object,view);
     }
 
-    public static void injectViews(Object object,View parent){
+    public static void injectViews(Object object,View rootView){
         Class<?> clazz = object.getClass();
         Field[] fields = clazz.getDeclaredFields();
         for (Field field: fields){
             String fieldName = field.getName();
             try {
-                injectView(object,parent,fieldName);
+                injectView(object,rootView,fieldName);
             }catch (Exception e){
                 continue;
             }

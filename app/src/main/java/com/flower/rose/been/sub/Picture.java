@@ -14,6 +14,9 @@ public class Picture implements Parcelable {
     public String alt;
     public String title;
     public String thumbnail;
+    public int width;
+    public int height;
+    public int itemHeight;
 
     @Override
     public int describeContents() {

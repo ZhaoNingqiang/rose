@@ -8,7 +8,7 @@ import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
 import com.flower.rose.base.BasePresenter;
 import com.flower.rose.been.sub.Picture;
-import com.flower.rose.tinker.util.SampleApplicationContext;
+import com.flower.rose.tinker.util.RoseContext;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class BannerActivity extends BaseActicity {
 
 
     public static void runBannerActivity(Context context, ArrayList<Picture> pictures,int position, Runnable action) {
-        Intent i = new Intent(SampleApplicationContext.context, BannerActivity.class);
+        Intent i = new Intent(RoseContext.context, BannerActivity.class);
         i.putExtra(EXTRA_BANNER_DATA, pictures);
         i.putExtra(EXTRA_BANNER_POSITION, position);
         if (action != null) action.run();

@@ -1,6 +1,7 @@
 package com.flower.rose.been;
 
 import com.flower.rose.been.sub.Picture;
+import com.flower.rose.util.TextConvert;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,6 +34,8 @@ public class PictureList extends BaseBean<PictureList>{
                     picture.title = picture_e.attr("title");
                     Element thumbnail_e = picture_e.getElementsByClass("thumbnail").get(0);
                     picture.thumbnail= thumbnail_e.attr("src");
+                    picture.width = TextConvert.convert2Int(thumbnail_e.attr("width"));
+                    picture.height = TextConvert.convert2Int(thumbnail_e.attr("height"));
                     picture_list.add(picture);
 
                 }

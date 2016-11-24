@@ -22,7 +22,22 @@ import android.content.Context;
 /**
  * Created by zhangshaowen on 16/8/9.
  */
-public class SampleApplicationContext {
+public class RoseContext {
     public static Application application = null;
     public static Context context = null;
+
+    public static int getScreenWidth(){
+        return Holder.SCREEN_WIDTH;
+    }
+
+    public static int getScreenHeight(){
+        return Holder.SCREEN_HEIGHT;
+    }
+
+    static class Holder {
+        static int SCREEN_WIDTH = application.getResources().getDisplayMetrics().widthPixels;
+        static int SCREEN_HEIGHT = application.getResources().getDisplayMetrics().heightPixels;
+    }
+
+
 }

@@ -26,7 +26,7 @@ import android.os.Build;
 import android.support.multidex.MultiDex;
 
 import com.flower.rose.tinker.Log.MyLogImp;
-import com.flower.rose.tinker.util.SampleApplicationContext;
+import com.flower.rose.tinker.util.RoseContext;
 import com.flower.rose.tinker.util.TinkerManager;
 import com.tencent.tinker.anno.DefaultLifeCycle;
 import com.tencent.tinker.lib.tinker.TinkerInstaller;
@@ -81,8 +81,8 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         //you must install multiDex whatever tinker is installed!
         MultiDex.install(base);
 
-        SampleApplicationContext.application = getApplication();
-        SampleApplicationContext.context = getApplication();
+        RoseContext.application = getApplication();
+        RoseContext.context = getApplication();
         TinkerManager.setTinkerApplicationLike(this);
         TinkerManager.initFastCrashProtect();
         //should set before tinker is installed

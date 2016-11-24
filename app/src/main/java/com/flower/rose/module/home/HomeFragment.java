@@ -1,12 +1,13 @@
 package com.flower.rose.module.home;
 
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 
 import com.flower.rose.R;
 import com.flower.rose.base.BaseFragment;
 import com.flower.rose.been.PictureList;
+import com.flower.rose.tinker.util.RoseContext;
 import com.flower.rose.util.DensityUtils;
 import com.flower.rose.widget.recyclerview.GridItemDecoration;
 import com.flower.rose.widget.recyclerview.RoseRecycleView;
@@ -22,6 +23,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     private String TAG = "HomeFragment";
     public static final String EXTRA_SHOW_MODE = "extra_show_mode";
     private static final int COLUMNS_NUM = 2;
+    public static final int DECORATION_SIZE  = DensityUtils.dip2px(RoseContext.application,6);
     private RoseSwipeRefreshLayout rvsl_home;
     private RoseRecycleView rv_home;
     private HomeAdapter HomeAdapter;
@@ -43,11 +45,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected void initListener() {
-        GridLayoutManager layoutManager = new GridLayoutManager(mActivity, COLUMNS_NUM);
+       // GridLayoutManager layoutManager = new GridLayoutManager(mActivity, COLUMNS_NUM);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(COLUMNS_NUM,StaggeredGridLayoutManager.VERTICAL);
         rv_home.setLayoutManager(layoutManager);
         HomeAdapter = new HomeAdapter();
         rv_home.setAdapter(HomeAdapter);
-        rv_home.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(mActivity,6)));
+        rv_home.addItemDecoration(new GridItemDecoration(DECORATION_SIZE));
         rvsl_home.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

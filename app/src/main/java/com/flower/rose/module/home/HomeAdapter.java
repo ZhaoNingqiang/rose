@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.flower.rose.R;
 import com.flower.rose.been.sub.Picture;
 import com.flower.rose.module.banner.BannerActivity;
+import com.flower.rose.tinker.util.RoseContext;
 import com.flower.rose.util.GlideHelper;
 import com.flower.rose.widget.recyclerview.RoseAdapter;
 import com.flower.rose.widget.recyclerview.RoseViewHolder;
@@ -21,7 +22,12 @@ import java.util.ArrayList;
  */
 
 public class HomeAdapter extends RoseAdapter<Picture, HomeAdapter.ViewHolder> {
+    String tag = "HomeAdapter";
+    private float mItemWidth;
 
+    public HomeAdapter(){
+        mItemWidth = (RoseContext.getScreenWidth() - HomeFragment.DECORATION_SIZE) * .5f;
+    }
 
     @Override
     public ViewHolder onCreateContentViewHolder(ViewGroup parent, int viewType) {
@@ -38,8 +44,24 @@ public class HomeAdapter extends RoseAdapter<Picture, HomeAdapter.ViewHolder> {
             }
         });
         Picture picture = getItem(position);
+
+        setItemLayoutParams(holder,picture);
+
         GlideHelper.load(picture.thumbnail, holder.iv_cover);
         holder.tv_title.setText(picture.alt);
+    }
+
+    /**
+     * 从新
+     * @param holder
+     * @param picture
+     */
+    private void setItemLayoutParams(ViewHolder holder,Picture picture){
+        ViewGroup.LayoutParams layoutParams = holder.iv_cover.getLayoutParams();
+        if (picture.itemHeight == 0){
+            picture.itemHeight = (int) (mItemWidth * picture.height / picture.width);
+        }
+        layoutParams.height = picture.itemHeight;
     }
 
     static class ViewHolder extends RoseViewHolder {

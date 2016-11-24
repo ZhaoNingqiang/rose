@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ScrollerCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -17,9 +15,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
-import android.widget.AbsListView;
 
 import com.flower.rose.R;
 
@@ -103,7 +98,7 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 
                 @Override
                 public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                    RoseAdapter adapter = (RoseAdapter) recyclerView.getAdapter();
+                   /* RoseAdapter adapter = (RoseAdapter) recyclerView.getAdapter();
 
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int lastVisibleItemPosition = layoutManager.findLastCompletelyVisibleItemPosition();
@@ -113,7 +108,7 @@ public class RoseSwipeRefreshLayout<RV extends RoseRecycleView> extends SwipeRef
 //                        if (mLoadMoreListener != null) {
 //                            mLoadMoreListener.onLoaderMore();
 //                        }
-                    }
+                    }*/
 
                 }
             });
