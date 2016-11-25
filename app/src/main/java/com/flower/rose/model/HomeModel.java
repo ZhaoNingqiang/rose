@@ -35,7 +35,7 @@ public class HomeModel extends BaseModel {
        }
     }
 
-    public Observable<PictureList> newPicList(int page) {
+    private Observable<PictureList> newPicList(int page) {
         return API.getInstance().
                 getService().
                 newPicList(page).
@@ -43,7 +43,7 @@ public class HomeModel extends BaseModel {
 
     }
 
-    public Observable<PictureList> hotPicList(int page) {
+    private Observable<PictureList> hotPicList(int page) {
         return API.getInstance().
                 getService().
                 hotPicList(page).

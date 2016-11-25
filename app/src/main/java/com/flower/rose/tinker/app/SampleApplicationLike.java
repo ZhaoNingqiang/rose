@@ -101,4 +101,9 @@ public class SampleApplicationLike extends DefaultApplicationLike {
         getApplication().registerActivityLifecycleCallbacks(callback);
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        RoseContext.initConfig(getApplication());
+    }
 }
