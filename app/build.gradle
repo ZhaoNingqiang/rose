@@ -65,7 +65,10 @@ android {
          * so we can get the newly git version easily!
          */
         buildConfigField "String", "CLIENTVERSION", "\"${getTinkerIdValue()}\""
-        buildConfigField "String", "PLATFORM",  "\"all\""
+        buildConfigField "String", "PLATFORM", "\"all\""
+
+        // 默认渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "tdebug"]
     }
     buildTypes {
 //        release {
@@ -85,14 +88,12 @@ android {
         }
     }
 
-
-
-   /* buildTypes {
-//        release {
-//            minifyEnabled false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//        }
-    }*/
+    /* buildTypes {
+ //        release {
+ //            minifyEnabled false
+ //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+ //        }
+     }*/
 }
 
 def bakPath = file("${buildDir}/bakApk/")
@@ -104,7 +105,7 @@ def bakPath = file("${buildDir}/bakApk/")
  */
 ext {
     //for some reason, you may want to ignore tinkerBuild, such as instant run debug build?
-    tinkerEnabled = true
+    tinkerEnabled = false
 
     //for normal build
     //old apk file to build patch apk
@@ -334,7 +335,7 @@ if (buildWithTinker()) {
     }
 
     List<String> flavors = new ArrayList<>();
-    project.android.productFlavors.each {flavor ->
+    project.android.productFlavors.each { flavor ->
         flavors.add(flavor.name)
     }
     boolean hasFlavors = flavors.size() > 0
@@ -419,6 +420,7 @@ if (buildWithTinker()) {
         }
     }
 }
+
 def gitSha() {
     try {
         String gitRev = 'git rev-parse --short HEAD'.execute().text.trim()
@@ -437,7 +439,7 @@ dependencies {
     compile("com.tencent.tinker:tinker-android-anno:${TINKER_VERSION}") { changing = true }
     compile "com.android.support:multidex:1.0.1"
 
-
+    compile fileTree(dir: 'libs', includes: ['*.jar'])//将libs目录下的所有jar文件包含进来
     compile 'com.android.support:support-v4:24.0.0'
     compile 'com.android.support:appcompat-v7:24.0.0'
     compile 'com.android.support:design:24.0.0'
@@ -452,10 +454,11 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
-    compile files('libs/jsoup-1.9.2.jar')
+//    compile 'io.reactivex:rxjava:1.0.14'
+//    compile 'io.reactivex:rxandroid:1.0.1'
+    compile('com.squareup.retrofit2:adapter-rxjava:2.0.2') {
+        transitive = false
+    }
     //    compile 'com.squareup.retrofit2:converter-simplexml:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
