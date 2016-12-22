@@ -1,8 +1,11 @@
 package com.flower.rose.module.banner;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.flower.rose.R;
 import com.flower.rose.base.BaseActicity;
@@ -30,12 +33,19 @@ public class BannerActivity extends BaseActicity {
     private int mPosition;
 
 
-    public static void runBannerActivity(Context context, ArrayList<Picture> pictures,int position, Runnable action) {
+    public static void runBannerActivity(Activity activity, ArrayList<Picture> pictures, int position, View v) {
         Intent i = new Intent(SampleApplicationContext.context, BannerActivity.class);
         i.putExtra(EXTRA_BANNER_DATA, pictures);
         i.putExtra(EXTRA_BANNER_POSITION, position);
-        if (action != null) action.run();
-        context.startActivity(i);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(activity, v,activity.getString(R.string.image_transition_name));
+
+            activity.startActivity(i,options.toBundle());
+        }else {
+            activity.startActivity(i);
+        }
+
     }
 
     @Override

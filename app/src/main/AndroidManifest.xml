@@ -2,12 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.flower.rose">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".app.Rose"
         android:allowBackup="true"
@@ -17,7 +18,8 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".tinker.service.SampleResultService"
-            android:exported="false"/>
+            android:exported="false" />
+
         <activity android:name=".module.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.login.LoginActivity"
-            android:parentActivityName=".tinker.app.MainActivity">
+        <activity
+            android:name=".module.login.LoginActivity"
+            android:parentActivityName=".tinker.app.MainActivity"
+            android:theme="@style/AppTheme.Main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".module.MainActivity"/>
+                android:value=".module.MainActivity" />
         </activity>
-        <activity android:name=".module.banner.BannerActivity"/>
+        <activity
+            android:name=".module.banner.BannerActivity"
+            android:theme="@style/AppTheme.Detail" />
     </application>
 
 </manifest>

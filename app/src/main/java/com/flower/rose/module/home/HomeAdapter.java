@@ -1,5 +1,7 @@
 package com.flower.rose.module.home;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,7 +36,7 @@ public class HomeAdapter extends RoseAdapter<Picture, HomeAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 ArrayList<Picture> pictures = (ArrayList<Picture>) mData;
-                BannerActivity.runBannerActivity(v.getContext(), pictures, position,null);
+                BannerActivity.runBannerActivity((Activity) v.getContext(), pictures, position,v);
             }
         });
         Picture picture = getItem(position);

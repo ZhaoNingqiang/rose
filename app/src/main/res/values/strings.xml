@@ -2,4 +2,6 @@
     <string name="app_name">Rose</string>
     <string name="drawer_open">打开了</string>
     <string name="drawer_close">关闭了</string>
+    <string name="image_transition_name">image_transition</string>
+
 </resources>

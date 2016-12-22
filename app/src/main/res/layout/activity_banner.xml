@@ -7,6 +7,7 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/banner"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:transitionName="@string/image_transition_name" />
 
 </LinearLayout>

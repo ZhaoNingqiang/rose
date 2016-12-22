@@ -20,7 +20,6 @@ public interface RoseService {
     @GET("/hot")
     Observable<PictureList> hotPicList(@Query("page") int page);
 
-    Observable<>
 
 
 }
