@@ -1,0 +1,254 @@
+<resources>
+
+    <string name="user_center_distance">里程(km)</string>
+    <string name="user_center_consume">消耗(kCal)</string>
+    <string name="user_center_auth">去完成身份认证</string>
+    <string name="user_center_order">行程记录</string>
+    <string name="user_center_wallet">钱包</string>
+    <string name="user_center_credit">信用</string>
+    <string name="user_center_invite">好友邀请</string>
+    <string name="user_center_setting">设置</string>
+    <string name="user_center_feedback">问题反馈</string>
+
+    <string name="user_info_edit_avatar_cancel">取消</string>
+    <string name="user_info_edit_avatar_photograph">拍照</string>
+    <string name="user_info_edit_avatar_picture">从手机相册选择</string>
+
+    <string name="user_info_edit_avatar">修改头像</string>
+    <string name="user_info_nick">昵称</string>
+    <string name="user_info_gender">性别</string>
+    <string name="user_info_birthday">生日</string>
+    <string name="user_info_auth">实名认证</string>
+    <string name="user_info_edit_password">修改密码</string>
+
+    <string name="user_info_nick_edit_hint">请输入昵称</string>
+
+    <string name="user_info_auth_pass">认证通过</string>
+
+    <string name="user_info_edit_password_old_hint">请输入旧密码</string>
+    <string name="user_info_edit_password_new_hint">请输入6~16位新密码</string>
+    <string name="user_info_edit_password_confirm_hint">请确认新密码</string>
+    <string name="user_info_edit_password_old_error">旧密码输入错误</string>
+    <string name="user_info_edit_password_new_error">两次密码输入不一致</string>
+
+    <string name="user_auth_deposit_status">需交纳押金</string>
+    <string name="user_auth_deposit_unit">元</string>
+    <string name="user_auth_deposit_tip">可全额退</string>
+    <string name="user_auth_deposit_wechat">微信支付</string>
+    <string name="user_auth_deposit_alipay">支付宝支付</string>
+
+    <string name="user_auth_name_hint">请输入真实姓名</string>
+    <string name="user_auth_name_no_hint">请输入身份证号码</string>
+    <string name="user_auth_name_auth">立即认证</string>
+    <string name="user_auth_reviewing_tip">您已提交身份认证,我们会在1-7个工作日内完成审核,请耐心等待</string>
+    <string name="user_auth_rephotograph_tip">您的身份信息未通过审核,原因是提交图片不清晰</string>
+    <string name="user_auth_rephotograph">重新拍照认证</string>
+    <string name="user_auth_finish_tip">认证成功,送您一张优惠券</string>
+    <string name="user_auth_finish">去约车</string>
+    <string name="user_auth_finish_voucher_amount_unit">元</string>
+    <string name="user_auth_recapture_photo">重新认证</string>
+
+
+
+    <string name="map_bikeinfo_distance">距您</string>
+    <string name="map_bikeinfo_time">步行</string>
+    <string name="map_bikeinfo_reserve">立即预约</string>
+
+    <string name="popupwindow_main_guide">用户指南</string>
+    <string name="popupwindow_main_feedback">问题反馈</string>
+    <string name="popupwindow_findbike_help">取车帮助</string>
+    <string name="popupwindow_findbike_feedback">问题反馈</string>
+    <string name="popupwindow_findbike_cancel">取消预约</string>
+
+    <string name="map_findbike_tip">您已经到达单车附近</string>
+
+    <string name="map_findbike_navi">开始导航</string>
+    <string name="map_findbike_distance">距起点</string>
+    <string name="map_findbike_time">步行</string>
+    <string name="map_findbike_navi_time">全程剩余</string>
+    <string name="map_findbike_navi_finish">结束导航</string>
+    <string name="map_findbike_scan">扫码解锁</string>
+    <string name="map_findbike_ring">响铃找车</string>
+
+    <string name="map_unlock_scan">扫描车上二维码解锁用车</string>
+    <string name="map_unlock_input">输入车辆上的编号解锁用车</string>
+    <string name="map_unlock">解锁</string>
+    <string name="map_unlock_now">解锁请求中</string>
+    <string name="map_unlock_code">解锁码</string>
+    <string name="map_unlock_manual">请操作手动开锁</string>
+    <string name="map_begin_billing">已开始计费，骑行愉快</string>
+
+    <string name="map_scan">扫码解锁</string>
+    <string name="map_usebike_question">落锁不结束计费？</string>
+    <string name="map_usebike_help">如何结束用车?</string>
+    <string name="map_usebike_finish_use">结束用车</string>
+    <string name="map_usebike_usetime">已经使用</string>
+    <string name="map_usebike_cost">当前花费</string>
+    <string name="map_usebike_alert">车已出运营范围, 请务必将车骑回</string>
+    <string name="map_usebike_lock">已落锁</string>
+    <string name="map_usebike_finish">秒后自动还车</string>
+    <string name="map_usebike_pause">临时停放</string>
+    <string name="map_usebike_scan">扫码解锁</string>
+    <string name="map_usebike_alert_finish">简骑版车辆不支持落锁自动还车，操作还车请点击底部“结束用车”按钮</string>
+    <string name="map_usebike_unlock_code">解锁码：</string>
+    <string name="map_usebike_unlock_guide">如何开锁?</string>
+
+    <string name="map_usebike_guide_1">对准指示线，按顺序输入解锁密码</string>
+    <string name="map_usebike_guide_2">按下锁上按钮，即可成功开锁</string>
+
+
+
+
+
+
+
+    <string name="data_error">数据加载失败</string>
+    <string name="parse_error">解析异常</string>
+    <string name="net_error">呃，网络好像出小差了......</string>
+    <string name="loading_data_error">页面加载失败\n请点击屏幕重新加载</string>
+    <string name="loading_hard">拼命加载中…</string>
+    <string name="pull_to_refresh_pull_label_list">下拉即可刷新..</string>
+    <string name="pull_to_refresh_release_label_list">松开即可刷新..</string>
+    <string name="pull_to_refresh_refreshing_label_list">加载中,请稍候..&#8230;</string>
+    <string name="pull_to_more_pull_label">滑动可以加载更多..</string>
+    <string name="pull_to_more_release_label">松开可以加载更多..</string>
+    <string name="pull_to_more_refreshing_label">加载中,请稍候..&#8230;</string>
+    <string name="no_data">暂无数据</string>
+    <string name="no_more_data">没有更多数据了</string>
+    <string name="list_view_footer_retry">加载失败，请点击重试</string>
+
+    <string name="order_cost_units">元</string>
+    <string name="order_cost_detail">费用详情</string>
+    <string name="order_cost_use">用车费用</string>
+    <string name="order_normal_use">标准时长计费</string>
+    <string name="order_activity_use">活动时长计费</string>
+    <string name="order_discount">优惠</string>
+    <string name="order_voucher">优惠券</string>
+    <string name="order_modify">改价处理后费用</string>
+    <string name="order_pay">立即支付</string>
+
+    <string name="order">行程</string>
+    <string name="order_time">使用%d分钟</string>
+    <string name="order_detail">行程详情</string>
+    <string name="order_not_pay">用车结束</string>
+    <string name="order_cancel_tips">您取消了本次行程</string>
+
+    <string name="order_no_cost">本行程未产生任何费用</string>
+    <string name="order_total">共计</string>
+    <string name="order_money">元</string>
+    <string name="order_renew_money">续约费用</string>
+
+    <string name="order_money_str">%s元</string>
+    <string name="order_choose_pay">支付方式选择</string>
+    <string name="order_coupons">优惠券</string>
+    <string name="order_cost_unit">花费(元)</string>
+    <string name="order_distance_unit">里程(km)</string>
+    <string name="order_spend_unit">消耗(kCal)</string>
+    <string name="order_usage_comment">使用评价</string>
+    <string name="order_share">分享行程</string>
+    <string name="order_take_photo">拍摄照片</string>
+
+    <string name="user_order_empty">您还没有任何行程</string>
+    <string name="user_order_error">加载失败,请检查网络</string>
+    <string name="user_order_empty_go">去约车</string>
+
+    <string name="user_wallet_voucher">优惠券</string>
+    <string name="user_wallet_voucher_empty">没有可用优惠券</string>
+    <string name="user_wallet_voucher_error">加载失败,请检查网络</string>
+    <string name="user_wallet_deposit">押金</string>
+    <string name="user_wallet_deposit_payable_status">未交押金</string>
+    <string name="user_wallet_deposit_payable_unit">元</string>
+    <string name="user_wallet_deposit_payable_tip">需交纳押金，可全额退</string>
+    <string name="user_wallet_deposit_paid_status">未交押金</string>
+    <string name="user_wallet_deposit_paid_status_ok">已交纳押金(元)</string>
+    <string name="user_wallet_deposit_paid_unit">元</string>
+    <string name="user_wallet_deposit_paid_withdraw">押金退款</string>
+    <string name="user_wallet_deposit_withdraw_status">押金提现成功</string>
+    <string name="user_wallet_deposit_withdraw_tip">押金将直接退回到充值账户\n预计1-7个工作日到账</string>
+
+    <string name="user_credit">信用分</string>
+
+    <string name="user_invite">邀请1位好友注册您将获得</string>
+    <string name="user_invite_friend">微信好友</string>
+    <string name="user_invite_moments">朋友圈</string>
+    <string name="user_invite_weibo">新浪微博</string>
+
+    <string name="user_feedback_no_hint">请输入单车编号</string>
+    <string name="user_feedback_type">请选择问题类型</string>
+    <string name="user_feedback_type_more">更多问题选择</string>
+    <string name="user_feedback_type_more_cancel">取消</string>
+    <string name="user_feedback_type_more_confirm">确定</string>
+    <string name="user_feedback_content_hint">请描述遇到的问题和建议</string>
+    <string name="user_feedback_upload">上传照片(0/4)</string>
+    <string name="user_feedback_submit">提交</string>
+
+    <string name="user_setting_guide">用户指南</string>
+    <string name="user_setting_agreement">用户协议</string>
+    <string name="user_setting_updata">检查更新</string>
+    <string name="user_setting_clear_cache">清除缓存</string>
+    <string name="user_setting_about">关于我们</string>
+    <string name="user_setting_logout">退出登录</string>
+
+    <string name="user_setting_about_welcome">欢迎页</string>
+    <string name="user_setting_about_wechat">微信</string>
+    <string name="user_setting_about_weibo">微博</string>
+    <string name="user_setting_about_website">官网</string>
+    <string name="user_setting_about_feedback">反馈建议</string>
+    <string name="user_setting_about_business_cooperation">业务合作</string>
+    <string name="user_setting_about_hotline">客服电话</string>
+
+    <!--登录相关-->
+    <string name="login_enter_phone">输入手机号</string>
+    <string name="login_tv">登录</string>
+    <string name="login_tv_">登录...</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_user_greement">输入验证码表示同意 </string>
+    <string name="login_user_greement_text">《用户协议》</string>
+    <string name="login_tv_sendverfiy">发送验证码</string>
+    <string name="login_tv_forget_pwd">忘记密码</string>
+    <string name="login_tv_send_again">重新发送</string>
+    <string name="login_btn_next">下一步</string>
+    <string name="tv_paw_text">密码为6-16位，可包含数字、字母、特殊字符</string>
+
+    <!--app新功能导航-->
+    <string name="new_feature_start_app">即刻出发</string>
+    <!--主页面app使用指南-->
+    <string name="main_use_guide">如何使用小蓝单车</string>
+    <string name="label_feedback_amount_title">更多金额选择</string>
+    <string name="no_sdcard">无SD卡</string>
+    <string name="no_supprot_cap">您的手机不支持裁剪头像</string>
+    <string name="title_feedback_lock_exception">落锁不结束计费</string>
+    <string name="label_feedback_upload_picture">上传照片(%1$s)</string>
+    <string name="label_feedback_select_amount">请选择你真实的用车费用</string>
+    <string name="label_feedback_detail_contact_customer">联系人工客服</string>
+    <string name="title_feedback_detail">反馈详情</string>
+    <string name="label_handle_result">处理结果</string>
+    <string name="label_handle_result_detail">落锁不结束计费</string>
+    <string name="label_feedback_time">反馈时间</string>
+    <string name="label_feedback_use_bike_cost">你选择的用车费用</string>
+    <string name="label_feedback_complete_process">处理完成</string>
+    <string name="label_feedback_system_processing">自动处理中</string>
+    <string name="label_feedback_manual_processing">已转人工处理</string>
+    <string name="label_feedback_process_tip">处理完成后会调整费用并短信通知您</string>
+    <string name="toast_submit_success">提交成功</string>
+    <string name="msg_uploading">正在上传</string>
+    <string name="title_deposit_list">押金明细</string>
+    <string name="label_deposit_paid">交押金</string>
+    <string name="label_deposit_refund">退押金</string>
+    <string name="label_alipay">支付宝</string>
+    <string name="label_wechat">微信</string>
+    <string name="label_to">至</string>
+    <string name="label_deposit_status_paid">支付成功</string>
+    <string name="label_deposit_status_to_pay">待支付</string>
+    <string name="label_deposit_status_refund">退款中</string>
+    <string name="label_deposit_status_refunded">退款成功</string>
+    <string name="toast_activity_null">暂无活动</string>
+    <string name="label_cancel">取消</string>
+    <string name="label_go_setting">去设置</string>
+    <string name="label_network_set_tip">当前网络不可以，请设置网络</string>
+    <string name="unlock_help">开锁帮助</string>
+    <string name="rb_text_intelligent_bike">智行</string>
+    <string name="rb_text_simple_bike">简骑</string>
+
+
+</resources>

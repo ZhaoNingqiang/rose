@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme.Main">
+    <style name="AppTheme.Main" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowExitTransition">@transition/main_exit</item>
     </style>
 
-    <style name="AppTheme.Detail">
+    <style name="AppTheme.Detail" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>

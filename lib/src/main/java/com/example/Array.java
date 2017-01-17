@@ -8,12 +8,16 @@ package com.example;
 
 public class Array {
     public static void main(String aras[]){
-        String[] arr1 = new String[]{"first","second"};
+       /* String[] arr1 = new String[]{"first","second"};
         String[] arr2 = new String[arr1.length + 1];
         arr2[0] = "abc";
         System.arraycopy(arr1,0,arr2,1,arr1.length);
         for (String s : arr2){
             System.out.println(s);
-        }
+        }*/
+
+        int a = 3;
+        int b = a << 1;
+        System.out.println("a = "+a+" b = "+b);
     }
 }

@@ -2,8 +2,10 @@
 <resources>
     <declare-styleable name="RoseSwipeRefreshLayout">
         <attr name="recyclerViewId" format="reference"/>
+    </declare-styleable>
 
-
+    <declare-styleable name="BGColorView">
+        <attr name="bgColor" format="color"/>
     </declare-styleable>
 
 </resources>

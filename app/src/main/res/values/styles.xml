@@ -9,11 +9,11 @@
     </style>
 
 
-    <style name="AppTheme.Main">
+    <style name="AppTheme.Main" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="AppTheme.AnimeDetail">
+    <style name="AppTheme.AnimeDetail" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
