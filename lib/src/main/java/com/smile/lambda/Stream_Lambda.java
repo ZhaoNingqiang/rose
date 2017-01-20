@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 赵凝强
@@ -14,8 +15,48 @@ import java.util.stream.Collectors;
 
 public class Stream_Lambda {
     public static void main(String[] args) {
+        // new Stream_Lambda().stream();
+        //new Stream_Lambda().flatMap();
+        reduce();
+    }
 
-        new Stream_Lambda().stream();
+    private static void reduce() {
+        Integer reduce = Stream.of(1, 2, 4, 5).reduce(10, (e1, e2) -> e1 + e2);
+        System.out.println(reduce);
+    }
+
+
+    private void flatMap() {
+        List<Person> javaProgrammer = new ArrayList<Person>() {
+            {
+                add(new Person("zhangsan", "java", "male", 1200, 23));
+                add(new Person("xiaoyue", "java", "female", 1800, 26));
+                add(new Person("dashan", "java", "female", 800, 25));
+                add(new Person("lisi", "java", "male", 1300, 28));
+                add(new Person("wangwu", "java", "male", 2300, 24));
+            }
+        };
+
+        List<Person> phpProgrammer = new ArrayList<Person>() {
+            {
+                add(new Person("David", "php", "female", 1100, 34));
+                add(new Person("xiongyingyang", "php", "female", 1000, 32));
+                add(new Person("yijianmei", "php", "male", 3000, 22));
+            }
+        };
+        List<Person> collect = Stream.of(javaProgrammer, phpProgrammer).flatMap(s ->
+//      将java和php程序员的姓名放到一个集合内
+//        {
+//            List<String> persons = new ArrayList<String>();
+//            s.forEach(person -> {persons.add(person.name);});
+//            return persons.stream();
+//        }
+                        //合并集合
+                        s.stream()
+        ).collect(Collectors.toList());
+        collect.forEach(p -> System.out.println(p));
+
+
     }
 
     private void stream() {
@@ -94,9 +135,9 @@ public class Stream_Lambda {
 
         //获取最高工资和最低工资的java程序员
         Person javaSalaryMax = javaProgrammer.stream().max((person, t1) -> person.salary - t1.salary).get();
-        System.out.println("java 工资最高的是 ： "+javaSalaryMax.name);
+        System.out.println("java 工资最高的是 ： " + javaSalaryMax.name);
         Person javaSalaryMin = javaProgrammer.stream().min((person, t1) -> person.salary - t1.salary).get();
-        System.out.println("java 工资最低的是 ： "+javaSalaryMin.name);
+        System.out.println("java 工资最低的是 ： " + javaSalaryMin.name);
     }
 
 

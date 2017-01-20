@@ -7,17 +7,23 @@ package com.example;
  */
 
 public class Array {
-    public static void main(String aras[]){
-       /* String[] arr1 = new String[]{"first","second"};
-        String[] arr2 = new String[arr1.length + 1];
-        arr2[0] = "abc";
-        System.arraycopy(arr1,0,arr2,1,arr1.length);
-        for (String s : arr2){
-            System.out.println(s);
-        }*/
+    public static void main(String aras[]) {
+        switch (3) {
+            case 2:
+                System.out.println("---222");
+                break;
+            case 3: {
+                System.out.println("---3333");
+                break;
+            }
+            case 4:
+                System.out.println("---44444");
+                break;
+            default:
+                System.out.println("---default");
 
-        int a = 3;
-        int b = a << 1;
-        System.out.println("a = "+a+" b = "+b);
+
+
+        }
     }
 }
