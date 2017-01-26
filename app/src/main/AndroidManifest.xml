@@ -20,7 +20,7 @@
             android:name=".tinker.service.SampleResultService"
             android:exported="false" />
 
-        <activity android:name=".module.MainActivity">
+        <activity android:name=".module.rxbus.RxBusActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
